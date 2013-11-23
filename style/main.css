@@ -1,56 +1,56 @@
 html {
-    margin: 0px;
-    padding: 0px;
-    border: 0px solid black;
+	margin: 0px;
+	padding: 0px;
+	border: 0px solid black;
 }
 
 body {
-    width: 1024px;
-    height: 100%;
-    margin: 0px auto;
-    padding: 2px;
-    border: 0px solid black;
-    background: #e9e9e9;
+	width: 1024px;
+	height: 100%;
+	margin: 0px auto;
+	padding: 2px;
+	border: 0px solid black;
+	background: #e9e9e9;
 }
 
 canvas {
-    border: 2px dashed black;
+	border: 2px dashed black;
 }
 
 #header {
-    margin: 0px; margin-bottom: 10px;
-    padding: 2px;
-    background: #8f8fe9;
+	margin: 0px; margin-bottom: 10px;
+	padding: 2px;
+	background: #8f8fe9;
 }
 
 #body {
-    margin: 10px 0px;
-    padding: 6px;
-    background: #8f8fe9;
-    text-align: center;
+	margin: 10px 0px;
+	padding: 6px;
+	background: #8f8fe9;
+	text-align: center;
 }
 
 #body #info {
-    width: 400px;
-    margin: 8px auto;
-    padding: 4px 8px;
-    background: 9f9fe9;
-    text-align: left;
+	width: 400px;
+	margin: 8px auto;
+	padding: 4px 8px;
+	background: #9f9fe9;
+	text-align: left;
 }
 
 #footer {
-    margin: 0px; margin-top: 10px;
-    padding: 2px;
-    background: #8f8fe9;
-    text-align: center;
+	margin: 0px; margin-top: 10px;
+	padding: 2px;
+	background: #8f8fe9;
+	text-align: center;
 }
 
 #footer p {
-    margin: 3px;
-    padding: 1px;
-    border: 0px solid black;
+	margin: 3px;
+	padding: 1px;
+	border: 0px solid black;
 }
 
 #assets {
-    display: none;
+	display: none;
 }
