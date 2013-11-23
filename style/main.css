@@ -10,21 +10,42 @@ body {
     margin: 0px auto;
     padding: 2px;
     border: 0px solid black;
-    text-align: center;
 }
 
 canvas {
-    border: 1px dashed gray;
+    border: 2px dashed black;
 }
 
 #header {
-    background: red;
+    margin: 0px; margin-bottom: 10px;
+    padding: 2px;
+    background: 8f8fe9;
 }
 
 #body {
-    background: blue;
+    margin: 10px 0px;
+    padding: 6px;
+    background: 8f8fe9;
+    text-align: center;
+}
+
+#body #info {
+    width: 400px;
+    margin: 8px auto;
+    padding: 4px 8px;
+    background: 9f9fe9;
+    text-align: left;
 }
 
 #footer {
-    background: green;
+    margin: 0px; margin-top: 10px;
+    padding: 2px;
+    background: #8f8fe9;
+    text-align: center;
+}
+
+#footer p {
+    margin: 3px;
+    padding: 1px;
+    border: 0px solid black;
 }
