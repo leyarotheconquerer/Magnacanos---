@@ -16,3 +16,15 @@ body {
 canvas {
     border: 1px dashed gray;
 }
+
+#header {
+    background: red;
+}
+
+#body {
+    background: blue;
+}
+
+#footer {
+    background: green;
+}
