@@ -1,0 +1,18 @@
+html {
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid black;
+}
+
+body {
+    width: 1024px;
+    height: 100%;
+    margin: 0px auto;
+    padding: 2px;
+    border: 0px solid black;
+    text-align: center;
+}
+
+canvas {
+    border: 1px dashed gray;
+}
