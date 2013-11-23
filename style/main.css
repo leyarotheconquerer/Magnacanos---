@@ -50,3 +50,7 @@ canvas {
     padding: 1px;
     border: 0px solid black;
 }
+
+#assets {
+    display: none;
+}
