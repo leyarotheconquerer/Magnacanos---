@@ -28,3 +28,7 @@ canvas {
 #footer {
     background: green;
 }
+
+#assets {
+    display: none;
+}
