@@ -1,5 +1,5 @@
 // Insert hooking of application into this file, not the game stuff itself...
-function go()
+window.onload = function()
 {
     // Declare variables ...
     var running = true;
