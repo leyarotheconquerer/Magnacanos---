@@ -35,6 +35,6 @@ window.onload = function()
         context.fillRect(width/2 - squareSize/2, height/2 - squareSize/2, squareSize, squareSize);
 	
 	timer.end();
-	console.log(timer.getDelayToNextFrame(40));
+	console.log(timer.getDelayToNextFrame(20));
     }, 40);
 }

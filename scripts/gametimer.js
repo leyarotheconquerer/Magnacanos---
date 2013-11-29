@@ -18,11 +18,11 @@ GameTimer = function()
 	var date = new Date();
 	
 	currentMillis = date.getTime();
-	this.duration = this.firstMillis - currentMillis;
+	this.duration = currentMillis - this.firstMillis;
     }
     
     // Returns the desired framedelay for the next frame based on the framerate.
     this.getDelayToNextFrame = function(desiredFramerate) {
-	return 1/desiredFramerate - this.lastDuration;
+	return ((1.0/desiredFramerate*1000) - this.duration);
     }
 }
