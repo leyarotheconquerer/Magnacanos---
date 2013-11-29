@@ -2,6 +2,7 @@
 window.onload = function()
 {
     // Declare variables ...
+    var timer = new GameTimer();
     
     var canvas;
     var context;
@@ -20,6 +21,8 @@ window.onload = function()
     
     // Main loop
     window.setInterval(function() {
+	timer.start();
+	
         // Clear canvas ...
         context.clearRect(0, 0, 800, 600);
         context.fillStyle = "#ffffff";
@@ -30,5 +33,8 @@ window.onload = function()
         
         context.fillStyle = "#ff2b2b";
         context.fillRect(width/2 - squareSize/2, height/2 - squareSize/2, squareSize, squareSize);
+	
+	timer.end();
+	console.log(timer.getDelayToNextFrame(40));
     }, 40);
 }

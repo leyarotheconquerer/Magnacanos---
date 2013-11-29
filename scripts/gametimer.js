@@ -1,5 +1,5 @@
 // Timer class for proper milliseconds timing.
-function GameTimer()
+GameTimer = function()
 {
     this.firstMillis = 0;
     this.averageDuration = 0;
