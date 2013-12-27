@@ -7,9 +7,12 @@ Engine = function()
 	this.gameUpdate = null;
 	this.drawList = null; // Not real, but for placement. // Temporarily hijacked for testing purposes
 	
+	this.physics = new PhysicsInterface();
+	
 	this.init = function()
 	{
 		// START THE ENGINE UP
+		this.physics.init();
 	}
 	
 	var truthness = true;

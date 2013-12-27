@@ -12,10 +12,13 @@ PhysicsInterface = function()
 	// Dimensions of the screen in pixels
 	this.screenpDimensions = new b2Vec2(800, 600);
 	
+	// The gravity vector for the physics world
+	this.gravity = new b2Vec2(0, 8);
+	
 	// Initializes the physics interface
 	this.init = function()
 	{
-		this.world = setupWorld(this.worldDimensions);
+		this.world = setupWorld(this.worldDimensions, this.gravity);
 	}
 	
 	// Converts from pixels to meters
@@ -71,9 +74,42 @@ PhysicsInterface = function()
 			}
 		}
 	}
-}
+	
+	// Initializes a new physics world
+	function setupWorld(dimensions, gravity)
+	{
+		// Arbitrary world setup constants (things I don't want to pass, but would like a variable for)
+		var thickness = 0.1;
+		
+		// Define world extents
+		var worldAABB = new b2AABB();
+		worldAABB.minVertex.Set(0,0);
+		worldAABB.maxVertex = dimensions;
+		
+		// Create the world object
+		var world = new b2World(worldAABB, gravity, true);
+		
+		// Bound the world with boxes for padding
+		setupWall(world, 0, dimensions.y - thickness, dimensions.x, thickness); // Bottom
+		setupWall(world, 0, 0, thickness, dimensions.y);                        // Left
+		setupWall(world, 0, 0, dimensions.x, thickness);                        // Top
+		setupWall(world, dimensions.x - thickness, 0, thickness, dimensions.y); // Right
+	}
 
-// Initializes a new physics world
-function setupWorld(dimensions)
-{
+	// Sets up a rectangle wall in the world
+	function setupWall(world, x, y, width, height)
+	{
+		// Create the fixture definition
+		var boxDef = new b2BoxDef();
+		boxDef.extents.Set(width, height);
+		boxDef.restitution = 0.2;
+		
+		// Create the body definition
+		var bodyDef = new b2BodyDef();
+		bodyDef.AddShape(boxDef);
+		bodyDef.position.Set(x,y);
+		
+		// Add the body to the world
+		return world.CreateBody(bodyDef);
+	}
 }
