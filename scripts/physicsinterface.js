@@ -15,15 +15,20 @@ PhysicsInterface = function()
 	// The gravity vector for the physics world
 	this.gravity = new b2Vec2(0, 8);
 	
-	var that = this;
+	var box;
 	
 	// Initializes the physics interface
 	this.init = function()
 	{
 		this.world = setupWorld(this.worldDimensions, this.gravity);
+		
+		box = addBox(this.world, 3, 3, 1, 1);
 	}
 	
-	var temp = true;
+	this.run = function()
+	{
+		this.world.Step();
+	}
 	
 	// Draws the all physics bodies
 	this.drawPhysicsBodies = function(context)
@@ -157,6 +162,23 @@ PhysicsInterface = function()
 		var boxDef = new b2BoxDef();
 		boxDef.extents.Set(width, height);
 		boxDef.restitution = 0.2;
+		
+		// Create the body definition
+		var bodyDef = new b2BodyDef();
+		bodyDef.AddShape(boxDef);
+		bodyDef.position.Set(x,y);
+		
+		// Add the body to the world
+		return world.CreateBody(bodyDef);
+	}
+	
+	// Adds a dynamic box to the world
+	function addBox(world, x, y, width, height)
+	{
+		// Create the fixture definition
+		var boxDef = new b2BoxDef();
+		boxDef.extents.Set(width, height);
+		boxDef.density = 1.0;
 		
 		// Create the body definition
 		var bodyDef = new b2BodyDef();

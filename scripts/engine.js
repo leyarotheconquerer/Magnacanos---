@@ -15,7 +15,7 @@ Engine = function()
 		this.physics.init();
 	}
 	
-	var truthness = true;
+	var counter = 0;
 	
 	this.run = function()
 	{
@@ -27,6 +27,14 @@ Engine = function()
 		// Setup for game content
 		// Call game content
 		// Desetup for game content
+		counter++;
+		
+		if(counter > 100)
+		{
+			this.physics.run();
+			console.log("step");
+			counter = 0;
+		}
 		
 		this.performanceTimer.end();
 		
