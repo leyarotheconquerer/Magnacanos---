@@ -15,10 +15,62 @@ PhysicsInterface = function()
 	// The gravity vector for the physics world
 	this.gravity = new b2Vec2(0, 8);
 	
+	var that = this;
+	
 	// Initializes the physics interface
 	this.init = function()
 	{
 		this.world = setupWorld(this.worldDimensions, this.gravity);
+	}
+	
+	var temp = true;
+	
+	// Draws the all physics bodies
+	this.drawPhysicsBodies = function(context)
+	{
+		for(var body = this.world.m_bodyList; body; body = body.m_next)
+		{
+			for(var fixture = body.GetShapeList(); fixture != null; fixture = fixture.GetNext())
+			{
+				this.drawFixture(fixture, context);
+			}
+		}
+	}
+	
+	// Draws a fixture to the given context
+	this.drawFixture = function(fixture, context)
+	{
+		context.beginPath();
+		
+		switch(fixture.m_type)
+		{
+		case b2Shape.e_circleShape:
+			var circle = fixture;
+			
+			var position = this.mtop(circle.m_position);
+			var radius = this.mtop(circle.m_radius);
+			
+			context.arc(position.x, position.y, radius, 0, 2*Math.PI);
+			
+			break;
+		case b2Shape.e_polyShape:
+			var polygon = fixture;
+			
+			var initVertex = this.mtop(b2Math.AddVV(polygon.m_position, b2Math.b2MulMV(polygon.m_R, polygon.m_vertices[0])));
+			context.moveTo(initVertex.x, initVertex.y);
+			
+			for(var i = 0; i < polygon.m_vertexCount; i++)
+			{
+				var vertex = this.mtop(b2Math.AddVV(polygon.m_position, b2Math.b2MulMV(polygon.m_R, polygon.m_vertices[i])));
+				context.lineTo(vertex.x, vertex.y);
+			}
+			
+			context.lineTo(initVertex.x, initVertex.y);
+			
+			break;
+		}
+		
+		context.stroke();
 	}
 	
 	// Converts from pixels to meters
@@ -30,8 +82,8 @@ PhysicsInterface = function()
 		// If has an x and y coordinate, treat it as a vector
 		if(val.x != null && val.y != null)
 		{
-			var x = (val.x * screenmDimensions.x) / screenpDimensions.x;
-			var y = (val.y * screenmDimensions.y) / screenpDimensions.y;
+			var x = (val.x * this.screenmDimensions.x) / this.screenpDimensions.x;
+			var y = (val.y * this.screenmDimensions.y) / this.screenpDimensions.y;
 			return new b2Vec2(x, y);
 		}
 		// If a single value, treat it as a single value
@@ -39,17 +91,17 @@ PhysicsInterface = function()
 		{
 			if(direction == "y")
 			{
-				return (val * screenmDimensions.y) / screenpDimensions.y;
+				return (val * this.screenmDimensions.y) / this.screenpDimensions.y;
 			}
 			else
 			{
-				return (val * screenmDimensions.x) / screenpDimensions.x;
+				return (val * this.screenmDimensions.x) / this.screenpDimensions.x;
 			}
 		}
 	}
 	
 	// Converts from meters to pixels
-	this.mtop = function()
+	this.mtop = function(val, direction)
 	{
 		// Default x dimension conversion
 		direction = direction || "x";
@@ -57,8 +109,8 @@ PhysicsInterface = function()
 		// If has an x and y coordinate, treat it as a vector
 		if(val.x != null && val.y != null)
 		{
-			var x = (val.x * screenpDimensions.x) / screenmDimensions.x;
-			var y = (val.y * screenpDimensions.y) / screenmDimensions.y;
+			var x = (val.x * this.screenpDimensions.x) / this.screenmDimensions.x;
+			var y = (val.y * this.screenpDimensions.y) / this.screenmDimensions.y;
 			return new b2Vec2(x, y);
 		}
 		// If a single value, treat it as a single valuee
@@ -66,11 +118,11 @@ PhysicsInterface = function()
 		{
 			if(direction == "y")
 			{
-				return (val * screenpDimensions.y) / screenmDimensions.y;
+				return (val * this.screenpDimensions.y) / this.screenmDimensions.y;
 			}
 			else
 			{
-				return (val * screenpDimensions.x) / screenmDimensions.x;
+				return (val * this.screenpDimensions.x) / this.screenmDimensions.x;
 			}
 		}
 	}
@@ -94,6 +146,8 @@ PhysicsInterface = function()
 		setupWall(world, 0, 0, thickness, dimensions.y);                        // Left
 		setupWall(world, 0, 0, dimensions.x, thickness);                        // Top
 		setupWall(world, dimensions.x - thickness, 0, thickness, dimensions.y); // Right
+		
+		return world;
 	}
 
 	// Sets up a rectangle wall in the world

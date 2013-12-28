@@ -54,5 +54,7 @@ Engine = function()
 		// Proof that draw is called every frame
 		context.fillStyle = "#333333";
 		context.fillText(this.performanceTimer.firstMillis, width/2, height/2);
+		
+		this.physics.drawPhysicsBodies(context);
 	}
 }
