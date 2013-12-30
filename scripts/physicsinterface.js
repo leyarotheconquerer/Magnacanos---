@@ -4,30 +4,30 @@ PhysicsInterface = function()
 	this.world = null;
 	
 	// Dimensions of the physics world in meters
-	this.worldDimensions = new b2Vec2(8, 6);
+	this.worldDimensions = new b2Vec2(80, 60);
 	
 	// Dimensions of the screen in meters
-	this.screenmDimensions = new b2Vec2(8,6);
+	this.screenmDimensions = new b2Vec2(80,60);
 	
 	// Dimensions of the screen in pixels
-	this.screenpDimensions = new b2Vec2(800, 600);
+	this.screenpDimensions = new b2Vec2(800.0, 600.0);
 	
 	// The gravity vector for the physics world
 	this.gravity = new b2Vec2(0, 8);
-	
-	var box;
 	
 	// Initializes the physics interface
 	this.init = function()
 	{
 		this.world = setupWorld(this.worldDimensions, this.gravity);
 		
-		box = addBox(this.world, 3, 3, 1, 1);
+		addBox(this.world, 30, 30, 1, 1);
+		
+		addBox(this.world, 30.5, 25, 1, 1);
 	}
 	
-	this.run = function()
+	this.run = function(step)
 	{
-		this.world.Step();
+		this.world.Step(step, 1);
 	}
 	
 	// Draws the all physics bodies
@@ -136,7 +136,7 @@ PhysicsInterface = function()
 	function setupWorld(dimensions, gravity)
 	{
 		// Arbitrary world setup constants (things I don't want to pass, but would like a variable for)
-		var thickness = 0.1;
+		var thickness = 1;
 		
 		// Define world extents
 		var worldAABB = new b2AABB();
@@ -179,6 +179,7 @@ PhysicsInterface = function()
 		var boxDef = new b2BoxDef();
 		boxDef.extents.Set(width, height);
 		boxDef.density = 1.0;
+		boxDef.friction = 0.1;
 		
 		// Create the body definition
 		var bodyDef = new b2BodyDef();

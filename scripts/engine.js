@@ -15,8 +15,6 @@ Engine = function()
 		this.physics.init();
 	}
 	
-	var counter = 0;
-	
 	this.run = function()
 	{
 		// RUN ALL THE THINGS
@@ -27,14 +25,8 @@ Engine = function()
 		// Setup for game content
 		// Call game content
 		// Desetup for game content
-		counter++;
 		
-		if(counter > 100)
-		{
-			this.physics.run();
-			console.log("step");
-			counter = 0;
-		}
+		this.physics.run(1.0 / this.framerate);
 		
 		this.performanceTimer.end();
 		
@@ -56,12 +48,9 @@ Engine = function()
 		
 		var squareSize = 250;
 		
-		context.fillStyle = "#ff2b2b";
-		context.fillRect(width/2 - squareSize/2, height/2 - squareSize/2, squareSize, squareSize);
-		
 		// Proof that draw is called every frame
 		context.fillStyle = "#333333";
-		context.fillText(this.performanceTimer.firstMillis, width/2, height/2);
+		context.fillText(this.performanceTimer.firstMillis, 30, 30);
 		
 		this.physics.drawPhysicsBodies(context);
 	}

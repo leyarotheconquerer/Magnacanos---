@@ -19,6 +19,16 @@ GameTimer = function()
 		
 		currentMillis = date.getTime();
 		this.duration = currentMillis - this.firstMillis;
+		
+		// A temporary implementation of averaging duration, really it calculates some mix between latest duration and average
+		if(this.averageDuration == 0)
+		{
+			this.averageDuration = this.duration;
+		}
+		else
+		{
+			this.averageDuration = (this.averageDuration + this.duration) / 2.0;
+		};
 	}
 	
 	// Returns the desired framedelay for the next frame based on the framerate.
