@@ -15,6 +15,8 @@ PhysicsInterface = function()
 	// The gravity vector for the physics world
 	this.gravity = new b2Vec2(0, 8);
 	
+	var planet;
+	
 	// Initializes the physics interface
 	this.init = function()
 	{
@@ -29,11 +31,23 @@ PhysicsInterface = function()
 		addStaticCircle(this.world, 30, 35, 2);
 		
 		addStaticBox(this.world, 35, 40, 2.5, 2.5);
+		
+		planet = new Planet();
+		
+		planet.create(this.world, 50, 30, 5);
 	}
 	
 	// Runs the physcs simulation for a given time step
 	this.run = function(step)
 	{
+		for(var body = this.world.m_bodyList; body; body = body.m_next)
+		{
+			if(body.IsSleeping() == false && body.GetMass() > 0)
+			{
+				var forceVec = planet.calcGravForce(body);
+				body.ApplyForce(forceVec, body.m_position);
+			}
+		}
 		this.world.Step(step, 1);
 	}
 	
@@ -42,11 +56,39 @@ PhysicsInterface = function()
 	{
 		for(var body = this.world.m_bodyList; body; body = body.m_next)
 		{
+			if(body.GetMass() > 0)
+			{
+				context.strokeStyle = "#ff0000";
+				var forceVec = planet.calcGravForce(body);
+				this.drawForce(body.m_position, forceVec, context);
+				context.strokeStyle = "#333333";
+			}
+			
 			for(var fixture = body.GetShapeList(); fixture != null; fixture = fixture.GetNext())
 			{
+				if(body.IsSleeping() == true)
+				{
+					context.strokeStyle = "#0000ff";
+				}
 				this.drawFixture(fixture, context);
+				context.strokeStyle = "#333333";
 			}
 		}
+	}
+	
+	// Draws a force vector
+	this.drawForce = function(position, forceVec, context)
+	{
+		position = this.mtop(position);
+		forceVec = this.mtop(forceVec);
+		var finalVec = b2Math.AddVV(position, forceVec);
+		
+		context.beginPath();
+		
+		context.moveTo(position.x, position.y);
+		context.lineTo(finalVec.x, finalVec.y);
+		
+		context.stroke();
 	}
 	
 	// Draws a fixture to the given context
