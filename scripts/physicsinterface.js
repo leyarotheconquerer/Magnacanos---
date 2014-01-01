@@ -23,8 +23,15 @@ PhysicsInterface = function()
 		addBox(this.world, 30, 30, 1, 1);
 		
 		addBox(this.world, 30.5, 25, 1, 1);
+		
+		addCircle(this.world, 31, 20, 1);
+		
+		addStaticCircle(this.world, 30, 35, 2);
+		
+		addStaticBox(this.world, 35, 40, 2.5, 2.5);
 	}
 	
+	// Runs the physcs simulation for a given time step
 	this.run = function(step)
 	{
 		this.world.Step(step, 1);
@@ -181,9 +188,55 @@ PhysicsInterface = function()
 		boxDef.density = 1.0;
 		boxDef.friction = 0.1;
 		
+		// Add to the world
+		return addSingleFixtureBody(world, boxDef, x, y);
+	}
+	
+	// Adds a dynamic circle to the world
+	function addCircle(world, x, y, radius)
+	{
+		// Create the fixture definition
+		var circleDef = new b2CircleDef();
+		circleDef.radius = radius;
+		circleDef.density = 1.0;
+		circleDef.friction = 0.1;
+		
+		// Add to the world
+		return addSingleFixtureBody(world, circleDef, x, y);
+	}
+	
+	// Adds a static box to the world
+	function addStaticBox(world, x, y, width, height)
+	{
+		// Create the fixture definition
+		var boxDef = new b2BoxDef();
+		boxDef.extents.Set(width, height);
+		boxDef.density = 0.0;
+		boxDef.friction = 0.1;
+		
+		// Add to the world
+		return addSingleFixtureBody(world, boxDef, x, y);
+	}
+	
+	// Adds a static circle to the world
+	function addStaticCircle(world, x, y, radius)
+	{
+		// Create the fixture definition
+		var circleDef = new b2CircleDef();
+		circleDef.radius = radius;
+		circleDef.density = 0.0;
+		circleDef.friction = 0.1;
+		
+		// Add to the world
+		return addSingleFixtureBody(world, circleDef, x, y);
+	}
+	
+	// Adds a body that has only a single fixture
+	function addSingleFixtureBody(world, fixtureDef, x, y)
+	{
 		// Create the body definition
 		var bodyDef = new b2BodyDef();
-		bodyDef.AddShape(boxDef);
+		bodyDef.AddShape(fixtureDef);
 		bodyDef.position.Set(x,y);
 		
 		// Add the body to the world
