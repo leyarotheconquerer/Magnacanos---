@@ -13,9 +13,9 @@ PhysicsInterface = function()
 	this.screenpDimensions = new b2Vec2(800.0, 600.0);
 	
 	// The gravity vector for the physics world
-	this.gravity = new b2Vec2(0, 8);
+	this.gravity = new b2Vec2(0, 0);
 	
-	var planet;
+	this.planets = [];
 	
 	// Initializes the physics interface
 	this.init = function()
@@ -28,13 +28,14 @@ PhysicsInterface = function()
 		
 		addCircle(this.world, 31, 20, 1);
 		
-		addStaticCircle(this.world, 30, 35, 2);
+		//addStaticCircle(this.world, 30, 35, 2);
 		
-		addStaticBox(this.world, 35, 40, 2.5, 2.5);
+		//addStaticBox(this.world, 35, 40, 2.5, 2.5);
 		
-		planet = new Planet();
-		
-		planet.create(this.world, 50, 30, 5);
+		// Add planets to the planet list
+		this.planets.push(new Planet(addStaticCircle(this.world, 50, 30, 5)));
+		this.planets.push(new Planet(addStaticCircle(this.world, 30, 50, 5)));
+		this.planets.push(new Planet(addStaticCircle(this.world, 55, 45, 5)));
 	}
 	
 	// Runs the physcs simulation for a given time step
@@ -44,7 +45,12 @@ PhysicsInterface = function()
 		{
 			if(body.IsSleeping() == false && body.GetMass() > 0)
 			{
-				var forceVec = planet.calcGravForce(body);
+				var forceVec = new b2Vec2(0,0);
+				for(planet = 0; planet < this.planets.length; planet++)
+				{
+					var planetForceVec = this.planets[planet].calcGravForce(body);
+					forceVec = b2Math.AddVV(forceVec, planetForceVec);
+				}
 				body.ApplyForce(forceVec, body.m_position);
 			}
 		}
@@ -59,7 +65,12 @@ PhysicsInterface = function()
 			if(body.GetMass() > 0)
 			{
 				context.strokeStyle = "#ff0000";
-				var forceVec = planet.calcGravForce(body);
+				var forceVec = new b2Vec2(0,0);
+				for(planet = 0; planet < this.planets.length; planet++)
+				{
+					var planetForceVec = this.planets[planet].calcGravForce(body);
+					forceVec = b2Math.AddVV(forceVec, planetForceVec);
+				}
 				this.drawForce(body.m_position, forceVec, context);
 				context.strokeStyle = "#333333";
 			}

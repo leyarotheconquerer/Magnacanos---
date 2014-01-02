@@ -1,8 +1,8 @@
 // The planet object - simplifies gravity calculations
-Planet = function()
+Planet = function(planetBody)
 {
 	// The physics body of the planet
-	this.physicsBody = null;
+	this.physicsBody = planetBody;
 	
 	// Gets the mass of the planet
 	this.mass = 10;
