@@ -41,6 +41,7 @@ PhysicsInterface = function()
 	// Runs the physcs simulation for a given time step
 	this.run = function(step)
 	{
+                //addCircle(this.world, 10, 10, 1);
 		for(var body = this.world.m_bodyList; body; body = body.m_next)
 		{
 			if(body.IsSleeping() == false && body.GetMass() > 0)

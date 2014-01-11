@@ -8,6 +8,8 @@ Engine = function()
 	this.drawList = null; // Not real, but for placement. // Temporarily hijacked for testing purposes
 	
 	this.physics = new PhysicsInterface();
+        
+        this.ponies = new Array();
 	
 	this.init = function()
 	{
@@ -25,12 +27,18 @@ Engine = function()
 		// Setup for game content
 		// Call game content
 		// Desetup for game content
-		
+                
 		this.physics.run(1.0 / this.framerate);
 		
+                // ADD PONIES!
+                var tempPony = new Pony();
+                tempPony.create(this.physics.world, this.physics.ptom(Math.floor(Math.random()*800*0.8 + 800*0.1)), this.physics.ptom(Math.floor(Math.random()*600*0.8 + 600*0.1)), 0);
+                
+                this.ponies.push(tempPony);
+                
+                // BORING MANAGEMENT STUFF
 		this.performanceTimer.end();
 		
-		// BORING MANAGEMENT STUFF
 		window.setTimeout(this.run, this.performanceTimer.getDelayToNextFrame(this.framerate));
 	}
 	
@@ -53,5 +61,10 @@ Engine = function()
 		context.fillText(this.performanceTimer.firstMillis, 30, 30);
 		
 		this.physics.drawPhysicsBodies(context);
+	        
+                // Draw the ponies
+                for(var i = 0; i < this.ponies.length; ++i) {
+                        this.ponies[i].draw(context, this.physics);
+                }
 	}
 }
