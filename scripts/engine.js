@@ -33,7 +33,7 @@ Engine = function()
                 // ADD PONIES!!
                 if(this.ponies.length < 250) {
                 var tempPony = new Pony();
-                tempPony.create(this.physics.world, this.physics.ptom(Math.floor(Math.random()*800*0.8 + 800*0.1)), this.physics.ptom(Math.floor(Math.random()*600*0.8 + 600*0.1)), this.ponies[this.ponies.length + 1]);
+                tempPony.create(this.physics.world, this.physics.ptom(Math.floor(Math.random()*800*0.8 + 800*0.1)), this.physics.ptom(Math.floor(Math.random()*600*0.8 + 600*0.1)), this.ponies.length + 1);
                 
                 this.ponies.push(tempPony);
                 }
