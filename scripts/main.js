@@ -1,10 +1,12 @@
 // Insert hooking of application into this file, not the game stuff itself...
+var engine;
+
 window.onload = function()
 {
 	// Declare variables ...
 	var timer = new GameTimer();
 	
-	var engine = new Engine();
+	engine = new Engine();
 	
 	var canvas;
 	var context;
