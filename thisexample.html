@@ -5,18 +5,18 @@
     
     <script type="text/javascript">
       // Try adding "var" to the beginning of the class name to check scoping.
-      FooClass = new function() {
+      var FooClass = function() {
         this.value = 10;
         this.name = "Tom";
+      };
+      
+      FooClass.prototype.toString = function() {
+        var output = "test";
         
-        this.toString = function() {
-          var output = "";
-          
-          output += "[" + this + "]" + "\n" + this.name + ": " + this.value;
-          
-          return output;
-        }
-      }
+        // output += "[" + this + "]" + "\n" + this.name + ": " + this.value;
+        
+        return output;
+      };
       
       function logit(text) {
         // Acquire buffer.
@@ -47,7 +47,7 @@
         // Start scoping tests ...
         var myFoo = new FooClass();
         
-        logit(myFoo);
+        logit(myFoo.toString());
       }
     </script>
     
