@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>THIS Reference Example</title>
+    
+    <script type="text/javascript">
+      // Try adding "var" to the beginning of the class name to check scoping.
+      FooClass = new function() {
+        this.value = 10;
+        this.name = "Tom";
+        
+        this.toString = function() {
+          var output = "";
+          
+          output += "[" + this + "]" + "\n" + this.name + ": " + this.value;
+          
+          return output;
+        }
+      }
+      
+      function runTests() {
+        var myFoo = new FooClass();
+        
+        logit("Yo!");
+        logit("Raise this barn!");
+        logit("Raise this barn!");
+        logit("Raise this barn!");
+        var buffer = "";
+        for(var count = 0; count < 4; ++count) buffer += (count + 1) + " ... ";
+        logit(buffer);
+        logit("Together we can raise this barn!");
+        logit(buffer);
+      }
+      
+      function logit(text) {
+        buffer = document.getElementById("debugText").innerHTML;
+        
+        buffer += text + "\n";
+      }
+    </script>
+    
+    <style>
+      html {
+        background: #efefef;
+      }
+      
+      #content {
+        width: 800px;
+        margin: 8px auto;
+        padding: 5px 8px;
+        
+        background: #2e3436;
+        
+        color: #efefef;
+        font: 0.8em "Trebuchet MS", Helvetica, sans-serif;
+      }
+      
+      #content h1 {
+        font: 1em;
+        text-transform: uppercase;
+      }
+      
+      #content #debugText {
+        white-space: pre-line;
+        
+        font: 0.8em "Consolas", "Courier New", Courier, monospace;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div id="content">
+      <h1>Debug Output</h1>
+      
+      <p id="debugText">Starting test ...</p>
+    </div>
+  </body>
+</html>
