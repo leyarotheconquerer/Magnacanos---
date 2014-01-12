@@ -18,24 +18,36 @@
         }
       }
       
-      function runTests() {
-        var myFoo = new FooClass();
+      function logit(text) {
+        // Acquire buffer.
+        buffer = document.getElementById("debugText").innerHTML;
         
+        // Write to buffer.
+        buffer += text + "\n";
+        
+        // Update stream.
+        document.getElementById("debugText").innerHTML = buffer;	  
+      }
+      
+      function runTests() {
         logit("Yo!");
         logit("Raise this barn!");
         logit("Raise this barn!");
         logit("Raise this barn!");
+        
         var buffer = "";
         for(var count = 0; count < 4; ++count) buffer += (count + 1) + " ... ";
         logit(buffer);
+        
         logit("Together we can raise this barn!");
         logit(buffer);
-      }
-      
-      function logit(text) {
-        buffer = document.getElementById("debugText").innerHTML;
         
-        buffer += text + "\n";
+        logit("\n");
+        
+        // Start scoping tests ...
+        var myFoo = new FooClass();
+        
+        logit(myFoo);
       }
     </script>
     
@@ -45,14 +57,14 @@
       }
       
       #content {
-        width: 800px;
+        width: 1000px;
         margin: 8px auto;
         padding: 5px 8px;
         
         background: #2e3436;
         
         color: #efefef;
-        font: 0.8em "Trebuchet MS", Helvetica, sans-serif;
+        font: 1.2em "Trebuchet MS", Helvetica, sans-serif;
       }
       
       #content h1 {
@@ -68,11 +80,11 @@
     </style>
   </head>
   
-  <body>
+  <body onload="runTests()">
     <div id="content">
       <h1>Debug Output</h1>
       
-      <p id="debugText">Starting test ...</p>
+      <p id="debugText">Starting test ... </p>
     </div>
   </body>
 </html>
