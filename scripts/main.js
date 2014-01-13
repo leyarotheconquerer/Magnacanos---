@@ -23,24 +23,7 @@ window.onload = function()
 		}
 	}
 	
-	engine.init();
+	engine.init(context);
 	
-	// Main loop
-	window.setInterval(function() {
-		timer.start();
-		
-		// Run all game simulation code...
-		engine.run();
-		
-		// Clear canvas ...
-		context.clearRect(0, 0, 800, 600);
-		context.fillStyle = "#ffffff";
-		context.fillRect(0, 0, width, height);
-		
-		// Run all game drawing code...
-		engine.draw(context);
-		
-		timer.end();
-		//console.log(timer.getDelayToNextFrame(20));
-    }, 40);
+        engine.run();
 };

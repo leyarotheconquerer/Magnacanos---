@@ -8,16 +8,20 @@ Engine = function()
 	this.drawList = null; // Not real, but for placement. // Temporarily hijacked for testing purposes
         
         this.runLock = false;
+        this.context = null;
 	
 	this.physics = new PhysicsInterface();
         
         this.ponies = new Array();
 	
-	this.init = function()
+	this.init = function(context)
 	{
 		// START THE ENGINE UP
+                this.context = context;
 		this.physics.init();
 	};
+        
+        this.setContext = function(context) { this.context = context; };
 	
 	this.run = function()
 	{
@@ -25,6 +29,8 @@ Engine = function()
                 if(!this.runLock) {
                         this.runLock = true;
                 } else { // If locked, terminate.
+                        alert("Run collision detected.");
+                        
                         return;
                 }
                 
@@ -47,13 +53,17 @@ Engine = function()
                     this.ponies.push(tempPony);
                 }
                 
+                // DRAW IT ALL
+                this.draw(this.context)
+                
                 // BORING MANAGEMENT STUFF
 		this.performanceTimer.end();
-		
-		window.setTimeout(this.run, this.performanceTimer.getDelayToNextFrame(this.framerate));
                 
-                // End this run cycle.
+		// End this run cycle.
                 this.runLock = false;
+                
+                // Setup next run cycle ...
+		window.setTimeout(this.run(), this.performanceTimer.getDelayToNextFrame(this.framerate));
 	};
 	
 	// Hazen's placeholder draw function until a better draw routine is created
@@ -70,6 +80,11 @@ Engine = function()
 		
 		var squareSize = 250;
 		
+                // Clear canvas ...
+		context.clearRect(0, 0, 800, 600);
+		context.fillStyle = "#ffffff";
+		context.fillRect(0, 0, width, height);
+                
 		// Proof that draw is called every frame
 		context.fillStyle = "#333333";
 		context.fillText(this.performanceTimer.firstMillis, 30, 30);
