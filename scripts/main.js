@@ -43,4 +43,4 @@ window.onload = function()
 		timer.end();
 		//console.log(timer.getDelayToNextFrame(20));
     }, 40);
-}
+};

@@ -6,6 +6,8 @@ Engine = function()
 	
 	this.gameUpdate = null;
 	this.drawList = null; // Not real, but for placement. // Temporarily hijacked for testing purposes
+        
+        this.runLock = false;
 	
 	this.physics = new PhysicsInterface();
         
@@ -15,10 +17,17 @@ Engine = function()
 	{
 		// START THE ENGINE UP
 		this.physics.init();
-	}
+	};
 	
 	this.run = function()
 	{
+                // Lock this run cycle, if not already locked.
+                if(!this.runLock) {
+                        this.runLock = true;
+                } else { // If locked, terminate.
+                        return;
+                }
+                
 		// RUN ALL THE THINGS
 		this.performanceTimer.start();
 		
@@ -33,16 +42,19 @@ Engine = function()
                 // ADD PONIES!!
                 if(this.ponies.length < 250) {
                 var tempPony = new Pony();
-                tempPony.create(this.physics.world, this.physics.ptom(Math.floor(Math.random()*800*0.8 + 800*0.1)), this.physics.ptom(Math.floor(Math.random()*600*0.8 + 600*0.1)), 0);
+                    tempPony.create(this.physics.world, this.physics.ptom(Math.floor(Math.random()*800*0.8 + 800*0.1)), this.physics.ptom(Math.floor(Math.random()*600*0.8 + 600*0.1)), 0);
                 
-                this.ponies.push(tempPony);
+                    this.ponies.push(tempPony);
                 }
                 
                 // BORING MANAGEMENT STUFF
 		this.performanceTimer.end();
 		
 		window.setTimeout(this.run, this.performanceTimer.getDelayToNextFrame(this.framerate));
-	}
+                
+                // End this run cycle.
+                this.runLock = false;
+	};
 	
 	// Hazen's placeholder draw function until a better draw routine is created
 	this.draw = function(context)
@@ -68,5 +80,5 @@ Engine = function()
                 for(var i = 0; i < this.ponies.length; ++i) {
                         this.ponies[i].draw(context, this.physics);
                 }
-	}
-}
+	};
+};

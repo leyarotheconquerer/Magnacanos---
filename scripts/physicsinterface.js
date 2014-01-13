@@ -36,7 +36,7 @@ PhysicsInterface = function()
 		this.planets.push(new Planet(addStaticCircle(this.world, 50, 30, 5)));
 		this.planets.push(new Planet(addStaticCircle(this.world, 30, 50, 5)));
 		this.planets.push(new Planet(addStaticCircle(this.world, 55, 45, 5)));
-	}
+	};
 	
 	// Runs the physcs simulation for a given time step
 	this.run = function(step)
@@ -56,7 +56,7 @@ PhysicsInterface = function()
 			}
 		}
 		this.world.Step(step, 1);
-	}
+	};
 	
 	// Draws the all physics bodies
 	this.drawPhysicsBodies = function(context)
@@ -86,7 +86,7 @@ PhysicsInterface = function()
 				context.strokeStyle = "#333333";
 			}
 		}
-	}
+	};
 	
 	// Draws a force vector
 	this.drawForce = function(position, forceVec, context)
@@ -101,7 +101,7 @@ PhysicsInterface = function()
 		context.lineTo(finalVec.x, finalVec.y);
 		
 		context.stroke();
-	}
+	};
 	
 	// Draws a fixture to the given context
 	this.drawFixture = function(fixture, context)
@@ -137,7 +137,7 @@ PhysicsInterface = function()
 		}
 		
 		context.stroke();
-	}
+	};
 	
 	// Converts from pixels to meters
 	this.ptom = function(val, direction)
@@ -164,7 +164,7 @@ PhysicsInterface = function()
 				return (val * this.screenmDimensions.x) / this.screenpDimensions.x;
 			}
 		}
-	}
+	};
 	
 	// Converts from meters to pixels
 	this.mtop = function(val, direction)
@@ -191,7 +191,7 @@ PhysicsInterface = function()
 				return (val * this.screenpDimensions.x) / this.screenmDimensions.x;
 			}
 		}
-	}
+	};
 	
 	// Initializes a new physics world
 	function setupWorld(dimensions, gravity)
@@ -214,7 +214,7 @@ PhysicsInterface = function()
 		setupWall(world, dimensions.x - thickness, 0, thickness, dimensions.y); // Right
 		
 		return world;
-	}
+	};
 
 	// Sets up a rectangle wall in the world
 	function setupWall(world, x, y, width, height)
@@ -231,7 +231,7 @@ PhysicsInterface = function()
 		
 		// Add the body to the world
 		return world.CreateBody(bodyDef);
-	}
+	};
 	
 	// Adds a dynamic box to the world
 	function addBox(world, x, y, width, height)
@@ -244,7 +244,7 @@ PhysicsInterface = function()
 		
 		// Add to the world
 		return addSingleFixtureBody(world, boxDef, x, y);
-	}
+	};
 	
 	// Adds a dynamic circle to the world
 	function addCircle(world, x, y, radius)
@@ -257,7 +257,7 @@ PhysicsInterface = function()
 		
 		// Add to the world
 		return addSingleFixtureBody(world, circleDef, x, y);
-	}
+	};
 	
 	// Adds a static box to the world
 	function addStaticBox(world, x, y, width, height)
@@ -270,7 +270,7 @@ PhysicsInterface = function()
 		
 		// Add to the world
 		return addSingleFixtureBody(world, boxDef, x, y);
-	}
+	};
 	
 	// Adds a static circle to the world
 	function addStaticCircle(world, x, y, radius)
@@ -283,7 +283,7 @@ PhysicsInterface = function()
 		
 		// Add to the world
 		return addSingleFixtureBody(world, circleDef, x, y);
-	}
+	};
 	
 	// Adds a body that has only a single fixture
 	function addSingleFixtureBody(world, fixtureDef, x, y)
@@ -295,5 +295,5 @@ PhysicsInterface = function()
 		
 		// Add the body to the world
 		return world.CreateBody(bodyDef);
-	}
+	};
 }

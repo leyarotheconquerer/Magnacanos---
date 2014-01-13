@@ -22,7 +22,7 @@ Planet = function(planetBody)
 		bodyDef.position.Set(x,y);
 		
 		this.physicsBody = world.CreateBody(bodyDef);
-	}
+	};
 	
 	// Calculate gravity force due to this planet
 	this.calcGravForce = function(otherBody)
@@ -48,5 +48,5 @@ Planet = function(planetBody)
 		var gravForceVector = b2Math.MulFV(gravForce * -100, positionDiff);
 		
 		return gravForceVector;
-	}
-}
+	};
+};
