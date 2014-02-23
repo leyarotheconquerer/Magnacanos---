@@ -31,13 +31,13 @@ Engine = function()
         if(!this.runLock) {
             this.runLock = true;
         } else { // If locked, terminate.
-            alert("Run collision detected.");
+            // alert("Run collision detected.");
             
             return;
         }
         
 	// RUN ALL THE THINGS
-	this.performanceTimer.start();
+	//this.performanceTimer.start();
 	
 	// UPDATE
 	// Do engine specific stuff
@@ -56,10 +56,10 @@ Engine = function()
 	}
 	
 	// DRAW IT ALL
-	this.draw(this.context)
+	this.draw(this.context);
 	
 	// BORING MANAGEMENT STUFF
-	this.performanceTimer.end();
+	//this.performanceTimer.end();
         
 	// End this run cycle.
         this.runLock = false;
