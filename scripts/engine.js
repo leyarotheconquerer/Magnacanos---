@@ -37,7 +37,7 @@ Engine = function()
         }
         
 	// RUN ALL THE THINGS
-	//this.performanceTimer.start();
+	this.performanceTimer.start();
 	
 	// UPDATE
 	// Do engine specific stuff
@@ -59,7 +59,7 @@ Engine = function()
 	this.draw(this.context);
 	
 	// BORING MANAGEMENT STUFF
-	//this.performanceTimer.end();
+	this.performanceTimer.end();
         
 	// End this run cycle.
         this.runLock = false;
