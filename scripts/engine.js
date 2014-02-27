@@ -1,6 +1,7 @@
 // GAME ENGINE FUNCTION OF GREATNESS
 Engine = function()
 {
+    var that = this;
     this.framerate = 40;
     this.performanceTimer = new GameTimer();
     
@@ -17,19 +18,19 @@ Engine = function()
     this.init = function(context)
     {
 	// START THE ENGINE UP
-        this.context = context;
-	this.physics.init();
+        that.context = context;
+	that.physics.init();
     };
     
-    this.setContext = function(context) { this.context = context; };
+    this.setContext = function(context) { that.context = context; };
     
     this.run = function()
     {
 	console.log("GOGOGO!");
 
         // Lock this run cycle, if not already locked.
-        if(!this.runLock) {
-            this.runLock = true;
+        if(!that.runLock) {
+            that.runLock = true;
         } else { // If locked, terminate.
             // alert("Run collision detected.");
             
@@ -37,7 +38,7 @@ Engine = function()
         }
         
 	// RUN ALL THE THINGS
-	this.performanceTimer.start();
+	that.performanceTimer.start();
 	
 	// UPDATE
 	// Do engine specific stuff
@@ -45,29 +46,29 @@ Engine = function()
 	// Call game content
 	// Desetup for game content
         
-	this.physics.run(1.0 / this.framerate);
+	that.physics.run(1.0 / that.framerate);
 	
 	// ADD PONIES!!
-	if(this.ponies.length < 250) {
+	if(that.ponies.length < 250) {
 	    var tempPony = new Pony();
-	    tempPony.create(this.physics.world, this.physics.ptom(Math.floor(Math.random()*800*0.8 + 800*0.1)), this.physics.ptom(Math.floor(Math.random()*600*0.8 + 600*0.1)), 0);
+	    tempPony.create(that.physics.world, that.physics.ptom(Math.floor(Math.random()*800*0.8 + 800*0.1)), that.physics.ptom(Math.floor(Math.random()*600*0.8 + 600*0.1)), 0);
 	    
-	    this.ponies.push(tempPony);
+	    that.ponies.push(tempPony);
 	}
 	
 	// DRAW IT ALL
-	this.draw(this.context);
+	that.draw(that.context);
 	
 	// BORING MANAGEMENT STUFF
-	this.performanceTimer.end();
+	that.performanceTimer.end();
         
-	// End this run cycle.
-        this.runLock = false;
+	// End that run cycle.
+        that.runLock = false;
 	
 	console.log("SETUP NEXT CYCLE.");
 	
         // Setup next run cycle ...
-	// window.setTimeout(this.run(), this.performanceTimer.getDelayToNextFrame(this.framerate));
+	window.setTimeout(that.run(), that.performanceTimer.getDelayToNextFrame(that.framerate));
     };
     
     // Hazen's placeholder draw function until a better draw routine is created
@@ -91,13 +92,13 @@ Engine = function()
         
 	// Proof that draw is called every frame
 	context.fillStyle = "#333333";
-	context.fillText(this.performanceTimer.firstMillis, 30, 30);
+	context.fillText(that.performanceTimer.firstMillis, 30, 30);
 	
-	this.physics.drawPhysicsBodies(context);
+	that.physics.drawPhysicsBodies(context);
 	
         // Draw the ponies
-        for(var i = 0; i < this.ponies.length; ++i) {
-            this.ponies[i].draw(context, this.physics);
+        for(var i = 0; i < that.ponies.length; ++i) {
+            that.ponies[i].draw(context, that.physics);
         }
     };
 };

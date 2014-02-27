@@ -25,5 +25,5 @@ window.onload = function()
     
     engine.init(context);
     
-    window.setInterval(engine.run, 1000);
+    window.setInterval(engine.run, 15);
 };
