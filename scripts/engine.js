@@ -86,10 +86,5 @@ Engine = function()
 	context.fillText(that.performanceTimer.firstMillis, 30, 30);
 	
 	that.physics.drawPhysicsBodies(context);
-	
-        // Draw the ponies
-        for(var i = 0; i < that.ponies.length; ++i) {
-            that.ponies[i].draw(context, that.physics);
-        }
     };
 };
