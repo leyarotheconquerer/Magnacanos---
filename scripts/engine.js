@@ -47,14 +47,6 @@ Engine = function()
         
 	that.physics.run(1.0 / that.framerate);
 	
-	// ADD PONIES!!
-	if(that.ponies.length < 250) {
-	    var tempPony = new Pony();
-	    tempPony.create(that.physics.world, that.physics.ptom(Math.floor(Math.random()*800*0.8 + 800*0.1)), that.physics.ptom(Math.floor(Math.random()*600*0.8 + 600*0.1)), 0);
-	    
-	    that.ponies.push(tempPony);
-	}
-	
 	// DRAW IT ALL
 	that.draw(that.context);
 	
