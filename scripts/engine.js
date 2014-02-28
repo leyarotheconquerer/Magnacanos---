@@ -1,7 +1,8 @@
 // GAME ENGINE FUNCTION OF GREATNESS
 Engine = function()
 {
-    var that = this;
+    var that = this; // Create a handle to the instance of this entity.
+    
     this.framerate = 40;
     this.performanceTimer = new GameTimer();
     
@@ -26,13 +27,11 @@ Engine = function()
     
     this.run = function()
     {
-	console.log("GOGOGO!");
-
-        // Lock this run cycle, if not already locked.
+	// Lock this run cycle, if not already locked.
         if(!that.runLock) {
             that.runLock = true;
         } else { // If locked, terminate.
-            // alert("Run collision detected.");
+            console.log("Run collision detected.");
             
             return;
         }
@@ -65,10 +64,10 @@ Engine = function()
 	// End that run cycle.
         that.runLock = false;
 	
-	console.log("SETUP NEXT CYCLE.");
+	console.log(that.performanceTimer.getDelayToNextFrame(that.framerate));
 	
         // Setup next run cycle ...
-	window.setTimeout(that.run(), that.performanceTimer.getDelayToNextFrame(that.framerate));
+	// window.setTimeout(that.run(), that.performanceTimer.getDelayToNextFrame(that.framerate));
     };
     
     // Hazen's placeholder draw function until a better draw routine is created
